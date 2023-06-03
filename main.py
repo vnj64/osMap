@@ -30,7 +30,7 @@ async def root():
 
 
 @app.post("/upload/")
-async def create_upload_file(file: UploadFile = File(...)):
+async def create_upload_file(file: UploadFile = File(media_type='multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW')):
     name = uuid.uuid4()
     file.filename = f"{name}.tif"
     contents = await file.read()
