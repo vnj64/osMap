@@ -10,4 +10,4 @@ def hello():
 
 @app.route('/map')
 def map():
-    return render_template('main.html')
+    return render_template('map.html')
