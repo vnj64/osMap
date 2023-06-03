@@ -1,56 +1,44 @@
+import { useState } from 'react';
 import './App.css';
-
-// react
-import React, { useState, useEffect } from 'react';
-
-// openlayers
-import GeoJSON from 'ol/format/GeoJSON'
-
-// components
 import MapWrapper from './components/MapWrapper'
 
-function App() {
-  
-  // set intial state
-  const [ features, setFeatures ] = useState([])
+const App = () => {
 
-  // initialization - retrieve GeoJSON features from Mock JSON API get features from mock 
-  //  GeoJson API (read from flat .json file in public directory)
-  // useEffect( () => {
+  const [file, setFile] = useState('');
 
-  //   fetch('/mock-geojson-api.json')
-  //     .then(response => response.json())
-  //     .then( (fetchedFeatures) => {
+  const [coorMarker, setCoorMarker] = useState(null);
+  const [coorPolygon, setCoorPolygon] = useState(null);
 
-  //       // parse fetched geojson into OpenLayers features
-  //       //  use options to convert feature from EPSG:4326 to EPSG:3857
-  //       console.log(fetchedFeatures)
-  //       const wktOptions = {
-  //         dataProjection: 'EPSG:4326',
-  //         featureProjection: 'EPSG:3857'
-  //       }
-  //       const parsedFeatures = new GeoJSON().readFeatures(fetchedFeatures, wktOptions)
 
-  //       // set features into state (which will be passed into OpenLayers
-  //       //  map component as props)
-  //       setFeatures(parsedFeatures)
+  const selectFile = (e) => {
+    setFile(e.target.files[0]);
+  }
 
-  //     })
-
-  // },[])
+  const viewGeo = () => {
+    fetch('http://localhost:8000/upload/', {
+      method: 'POST',
+      body: JSON.stringify(file),
+      headers: {
+        'Access-Control-Allow-Origin': 'no-cors',
+        'Content-Type': 'application/json',
+      },
+    }).then(response => response.json()).then((data) => {
+      console.log(data);
+    })
+  }
+  console.log(coorMarker !== null)
   
   return (
     <div className="App">
-      
-      {/* <div className="app-label">
-        <p>React Functional Components with OpenLayers Example</p>
-        <p>Click the map to reveal location coordinate via React State</p>
-      </div> */}
-      
-      <MapWrapper/>
 
+      <input type='file' onChange={selectFile} />
+      <button disabled={!file} onClick={viewGeo}>Отправить</button>
+      
+      {
+        (coorMarker !== null) && <MapWrapper coorMarker={coorMarker} coorPolygon={coorPolygon} />
+      }
     </div>
   )
 }
 
-export default App
+export default App;
