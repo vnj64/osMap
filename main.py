@@ -23,6 +23,37 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+tmp = {
+  "type": "FeatureCollection",
+  "generator": "overpass-ide",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2023-06-04T12:44:38Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1115290094",
+        "amenity": "parking"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              39.9787455,
+              43.4028267
+            ],
+            [
+              39.9812299,
+              43.402636
+            ]
+          ]
+        ]
+      },
+      "id": "way/1115290094"
+    }
+  ]
+}
 
 @app.get("/")
 async def root():
@@ -37,7 +68,10 @@ async def create_upload_file(file: UploadFile = File(...)):
 
     with open(f"{IMAGEDIR}{file.filename}", "wb") as f:
         f.write(contents)
-
     result = converter(name)
-
     return result
+
+
+@app.get('/markers')
+async def get_markers_coords():
+    return tmp
