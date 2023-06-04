@@ -25,8 +25,11 @@ const App = () => {
       method: 'POST',
       body: formData,
     }).then(response => response.json()).then((data) => {
-      console.log(data);
+      console.log(data, data.coordinates[0][0])
+      setCoorMarker(data.coordinates[0][0]);
+      setCoorPolygon(data);
     })
+    
   }
   console.log(coorMarker !== null)
   

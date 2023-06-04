@@ -30,7 +30,7 @@ import TileJSON from 'ol/source/TileJSON.js';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 
-const MapWrapper = () => {
+const MapWrapper = ({coorMarker, coorPolygon}) => {
 
     const [ map, setMap ] = useState()
     const [ selectedCoord , setSelectedCoord ] = useState()
@@ -40,6 +40,8 @@ const MapWrapper = () => {
     const mapRef = useRef()
     mapRef.current = map
 
+
+    const geoJes = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[39.93709874, 43.4283669], [39.94646981, 43.41776191], [39.96325055, 43.41966145], [40.00029895, 43.40493848], [40.00814449, 43.39496281], [39.99768377, 43.38498551], [39.97589059, 43.39227069], [39.93993185, 43.40588845], [39.92489456, 43.41459588], [39.92968906, 43.42425175], [39.93557322, 43.42852517]]}, "id": "8d5ccb35-83d2-4e4e-a7d9-81463e10049e", "properties": {"name": "Screen"}}]}
 
     useEffect(() => {
         const key = 'YbVpn3RV4HKKTCpFsNK9';
@@ -59,7 +61,7 @@ const MapWrapper = () => {
         target: mapElement.current,
         view: new View({
             constrainResolution: true,
-            center: fromLonLat([39.98132, 43.40076]),
+            center: fromLonLat(coorMarker),
             zoom: 13
         })
         });
@@ -69,7 +71,7 @@ const MapWrapper = () => {
                 features: [
                     new Feature({
                         geometry: new Point(
-                            fromLonLat([39.98132, 43.40076])
+                            fromLonLat(coorMarker)
                         )
                     })
                 ],
@@ -84,15 +86,30 @@ const MapWrapper = () => {
             })
         })
 
-        const polygonScreen = new VectorLayer({
+        const allPoin = new VectorLayer({
             source: new VectorSource({
-                url: 'https://api.maptiler.com/data/7e1ac090-be8d-4d3b-870c-660589ba54df/features.json?key=YbVpn3RV4HKKTCpFsNK9',
+                url: 'https://api.maptiler.com/data/e6b6cbe8-e4cb-40b4-9e9e-a4e7471f65ff/features.json?key=YbVpn3RV4HKKTCpFsNK9',
                 format: new GeoJSON(),
             }),
             style: new Style({
+                image: new Icon({
+                    src: 'https://static.thenounproject.com/png/68978-200.png',
+                    width: 50,
+                    height: 50
+                })
+            })
+        })
+
+        const vectorSource = new VectorSource({
+            features: new GeoJSON().readFeatures(geoJes)
+        });
+
+        const polygonScreen = new VectorLayer({
+            source: vectorSource,
+            style: new Style({
                 //FILL ЗАЛИВКА
                 fill: new Fill({
-                    color: 'rgba(165, 80, 51, 0.8)'
+                    color: 'rgba(165, 80, 51, 1)'
                 }),
                 //STROKE ОБВОДКА
                 stroke: new Stroke({
@@ -104,6 +121,7 @@ const MapWrapper = () => {
 
         initialMap.addLayer(polygonScreen);
         initialMap.addLayer(marker);
+        initialMap.addLayer(allPoin);
         initialMap.on('click', handleMapClick);
 
         setMap(initialMap)
