@@ -29,6 +29,7 @@ tmp = {
         'type': 'GeometryCollection',
         'geometries': [
             {
+                'img': '/papka/papka/uuid.tif',
                 'type': 'Point',
                 'coordinates': [
                     39.9812299,

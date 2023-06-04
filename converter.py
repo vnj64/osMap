@@ -11,7 +11,11 @@ def converter(name):
             try:
                 geom = rasterio.warp.transform_geom(dataset.crs, "EPSG:4326", geom, precision=6)
                 with open(f"geojsons/{name}.geojson", "w") as f:
-                    f.write(json.dumps(geom))
-                return geom
+                    formGeom = {
+                                   'type': 'Feature',
+                                   'geometry': geom
+                               },
+                    f.write(json.dumps(formGeom))
+                return formGeom
             except rasterio.errors.CRSError as e:
                 print(f"{name}: Error: Invalid CRS -", e)
