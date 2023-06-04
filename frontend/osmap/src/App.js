@@ -11,18 +11,19 @@ const App = () => {
 
 
   const selectFile = (e) => {
+
     console.log(e.target.files[0])
     setFile(e.target.files[0]);
   }
 
   const viewGeo = () => {
+
+    const formData = new FormData();
+    formData.append('file', file);
+
     fetch('http://localhost:8000/upload/', {
       method: 'POST',
-      body: file,
-      headers: {
-        'Access-Control-Allow-Origin': 'no-cors',
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
-      },
+      body: formData,
     }).then(response => response.json()).then((data) => {
       console.log(data);
     })
