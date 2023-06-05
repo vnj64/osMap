@@ -29,18 +29,27 @@ tmp = {
         'type': 'GeometryCollection',
         'geometries': [
             {
-                'img': '/papka/papka/uuid.tif',
-                'type': 'Point',
+                'type': 'Polygon',
                 'coordinates': [
-                    39.9812299,
-                    43.402636
-                ],
+                    [
+                        [-78.150789, 38.066723],
+                        [-78.138062, 37.768061],
+                        [-77.733504, 37.778149],
+                        [-77.744596, 38.07692],
+                        [-78.150789, 38.066723]
+                    ]
+                ]
             },
             {
-                'type': 'Point',
+                'type': 'Polygon',
                 'coordinates': [
-                    39.9787455,
-                    43.4028267
+                    [
+                        [-80.150789, 40.066723],
+                        [-80.138062, 39.768061],
+                        [-79.733504, 39.778149],
+                        [-79.744596, 40.07692],
+                        [-80.150789, 40.066723]
+                    ]
                 ]
             }
         ],
@@ -65,6 +74,6 @@ async def create_upload_file(file: UploadFile = File(...)):
     return result
 
 
-@app.get('/markers')
+@app.get('/polygons')
 async def get_markers_coords():
     return tmp
