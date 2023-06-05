@@ -29,6 +29,7 @@ import {format, toStringXY} from 'ol/coordinate';
 import TileJSON from 'ol/source/TileJSON.js';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
+import { Polygon } from 'ol/geom';
 
 const MapWrapper = ({coorMarker, coorPolygon}) => {
 
@@ -41,13 +42,54 @@ const MapWrapper = ({coorMarker, coorPolygon}) => {
     mapRef.current = map
 
 
-    const geoJes = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[39.93709874, 43.4283669], [39.94646981, 43.41776191], [39.96325055, 43.41966145], [40.00029895, 43.40493848], [40.00814449, 43.39496281], [39.99768377, 43.38498551], [39.97589059, 43.39227069], [39.93993185, 43.40588845], [39.92489456, 43.41459588], [39.92968906, 43.42425175], [39.93557322, 43.42852517]]}, "id": "8d5ccb35-83d2-4e4e-a7d9-81463e10049e", "properties": {"name": "Screen"}}]}
+    const geoJes = {
+        "type": "FeatureCollection", 
+        "features": [
+            {
+                "type": "Feature", 
+                "geometry": {
+                    "type": "Polygon", 
+                    "coordinates": [
+                        [
+                            [-78.150789, 38.066723], 
+                            [-78.138062, 37.768061], 
+                            [-77.733504, 37.778149], 
+                            [-77.744596, 38.07692], 
+                            [-78.150789, 38.066723]
+                        ]
+                    ]
+                }, 
+                "id": "056cfab1-2821-4778-8edc-099a8c66a4a2", 
+                "properties": null
+            }
+        ]
+    }
+    const geoJsonData = {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'Polygon',
+              coordinates: [
+                [
+                  [-78.150789, 38.066723],
+                  [-78.138062, 37.768061],
+                  [-77.733504, 37.778149],
+                  [-77.744596, 38.07692],
+                  [-78.150789, 38.066723]
+                ]
+              ]
+            }
+          }
+        ]
+      };
 
     useEffect(() => {
         const key = 'YbVpn3RV4HKKTCpFsNK9';
         const source = new TileJSON({
-            
-        url: `https://api.maptiler.com/maps/hybrid/tiles.json?key=${key}`,
+        url: `https://api.maptiler.com/maps/basic-v2/tiles.json?key=${key}`,
         tileSize: 512,
         crossOrigin: 'anonymous'
         });
@@ -100,28 +142,49 @@ const MapWrapper = ({coorMarker, coorPolygon}) => {
             })
         })
 
-        const vectorSource = new VectorSource({
-            features: new GeoJSON().readFeatures(geoJes)
+        const feature = new Feature({
+            geometry: new Polygon([[[-78.150789, 38.066723], [-78.138062, 37.768061], [-77.733504, 37.778149], [-77.744596, 38.07692], [-78.150789, 38.066723]]]),
+            name: 'My Polygon',
         });
 
-        const polygonScreen = new VectorLayer({
+        const vectorSource = new VectorSource({
+            format: new GeoJSON(),
+            url: 'https://api.maptiler.com/data/760304f0-d71a-4e75-8405-35e8bdd55195/features.json?key=YbVpn3RV4HKKTCpFsNK9',
+        });
+
+        const vectorLayer = new VectorLayer({
             source: vectorSource,
             style: new Style({
-                //FILL ЗАЛИВКА
                 fill: new Fill({
-                    color: 'rgba(165, 80, 51, 1)'
+                color: 'rgba(165, 80, 51, 0.8)'
                 }),
-                //STROKE ОБВОДКА
                 stroke: new Stroke({
-                    color: 'orange',
-                    width: 2
+                color: 'orange',
+                width: 2
                 })
             })
-        })
+        });
 
-        initialMap.addLayer(polygonScreen);
+
+        // const polygonScreen = new VectorLayer({
+        //     source: vectorSource,
+        //     style: new Style({
+        //         //FILL ЗАЛИВКА
+        //         fill: new Fill({
+        //             color: 'rgba(165, 80, 51, 0.5)'
+        //         }),
+        //         //STROKE ОБВОДКА
+        //         stroke: new Stroke({
+        //             color: 'orange',
+        //             width: 2
+        //         })
+        //     })
+        // })
+
+        initialMap.addLayer(vectorLayer);
+        // initialMap.addLayer(polygonScreen);
         initialMap.addLayer(marker);
-        initialMap.addLayer(allPoin);
+        // initialMap.addLayer(allPoin);
         initialMap.on('click', handleMapClick);
 
         setMap(initialMap)
