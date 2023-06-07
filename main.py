@@ -1,10 +1,11 @@
 import uuid
-
+from PIL import Image
+from io import BytesIO
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from converter import converter
-from tiff_to_png import tiff_to_png_convert
 
+from converter import converter
+from functions import download, get_from_ftp
 
 app = FastAPI()
 
@@ -73,7 +74,9 @@ async def create_upload_file(file: UploadFile = File(...)):
     with open(f"{IMAGEDIR}{file.filename}", "wb") as f:
         f.write(contents)
     # will be redacted soon
-    # tiff_to_png_convert(name)
+    # tiff_to_png_convert
+    res_img = Image.open(BytesIO(contents))
+    download(res_img)
     result = converter(name)
     return result
 
