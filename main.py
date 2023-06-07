@@ -3,6 +3,8 @@ import uuid
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from converter import converter
+from tiff_to_png import tiff_to_png_convert
+
 
 app = FastAPI()
 
@@ -70,6 +72,8 @@ async def create_upload_file(file: UploadFile = File(...)):
 
     with open(f"{IMAGEDIR}{file.filename}", "wb") as f:
         f.write(contents)
+    # will be redacted soon
+    # tiff_to_png_convert(name)
     result = converter(name)
     return result
 
