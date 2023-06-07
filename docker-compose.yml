@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: "${CONTAINER_NAME}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    : "/usr/src/app/${NAME_PROJECT:-app}"
+    volumes:
+      - .:/usr/src/app/${NAME_PROJECT}
+    command: python3 -m geocart
+    restart: unless-stopped
+    env_file:
+      - ".env"
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: "keywords_DB"
+    volumes:
+      - ./data:/var/lib/postgresql/data/
+    ports:
+      - "${DB_PORT}:5432"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
