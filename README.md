@@ -1,5 +1,7 @@
 <h1 align="center">.tiff viewer</h1>
 
+<p align="center"><img src="/home/sirius/Загрузки/PIC2.png"></p>
+
 ## Description.
 Project implemented on Python with using [fastAPI](https://fastapi.tiangolo.com/) framework. The user uploads .tiff
 image and by its result can see the correct binding of its image to the map. Coordinates are attached to the picture and
