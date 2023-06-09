@@ -16,9 +16,9 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## Project setup.
 ```
-# Installing dependencies
-pip install requirements.txt
+# Build docker image
+docker-compose build
 
-# Database and project setuping. 
+# Run the container
 docker-compose up -d
 ```
