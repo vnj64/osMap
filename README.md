@@ -1,6 +1,6 @@
 <h1 align="center">.tiff viewer</h1>
 
-<p align="center"><img src="../readme_assets/PIC2.png"></p>
+<p align="center"><img src="./readme_assets/PIC2.png"></p>
 
 ## Description.
 Project implemented on Python with using [fastAPI](https://fastapi.tiangolo.com/) framework. The user uploads .tiff
