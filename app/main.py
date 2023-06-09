@@ -7,7 +7,7 @@ from app.utils.scripts.converter import converter
 from app.utils.scripts.functions import download
 
 
-app = FastAPI()
+app = FastAPI(title="FastAPI, Docker, and Traefik")
 
 IMAGEDIR = "images/"
 
@@ -58,11 +58,6 @@ tmp = {
         ],
     }
 }
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
 
 
 @app.post("/upload/")
