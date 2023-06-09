@@ -6,10 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.utils.scripts.converter import converter
 from app.utils.scripts.functions import download
 
-
 app = FastAPI()
 
-IMAGEDIR = "images/"
+IMAGEDIR = "app/images/"
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -26,39 +25,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-tmp = {
-    'type': 'Feature',
-    'geometry': {
-        'type': 'GeometryCollection',
-        'geometries': [
-            {
-                'type': 'Polygon',
-                'coordinates': [
-                    [
-                        [-78.150789, 38.066723],
-                        [-78.138062, 37.768061],
-                        [-77.733504, 37.778149],
-                        [-77.744596, 38.07692],
-                        [-78.150789, 38.066723]
-                    ]
-                ]
-            },
-            {
-                'type': 'Polygon',
-                'coordinates': [
-                    [
-                        [-80.150789, 40.066723],
-                        [-80.138062, 39.768061],
-                        [-79.733504, 39.778149],
-                        [-79.744596, 40.07692],
-                        [-80.150789, 40.066723]
-                    ]
-                ]
-            }
-        ],
-    }
-}
-
 
 @app.get("/")
 async def root():
@@ -73,14 +39,49 @@ async def create_upload_file(file: UploadFile = File(...)):
 
     with open(f"{IMAGEDIR}{file.filename}", "wb") as f:
         f.write(contents)
-    # will be redacted soon
-    # tiff_to_png_convert
+    result, geojson_path, full_coordinates = converter(name)
+
     res_img = Image.open(BytesIO(contents))
     download(res_img)
-    result = converter(name)
+
+    now = datetime.now()
+    time_upload = now.strftime("%d:%m:%Y-%H:%M")
+
+    dataPublish = time_upload
+    images = geojson_path
+    id = name
+    full_coordinates = full_coordinates
+
+    # отправка в бд
+
     return result
 
 
 @app.get('/polygons')
 async def get_markers_coords():
-    return tmp
+    # получение из бд
+    mass = [{'id': id, 'images': images, 'full_coordinates': full_coordinates, 'dataPublish': dataPublish}]
+    new_mass = []
+
+    for item in mass:
+        new_item = {
+            type: "Feature",
+            'geometry': {
+                type: "Polygon",
+                'coordinates': item.full_coordinates
+
+            },
+            id: item.id,
+            'properties': {
+                'images': item.images,
+                'datePublish': item.dataPublish
+            }
+        }
+        new_mass.append(new_item)
+
+    newPolygonJSON = {
+        type: "FeatureCollection",
+        'features': new_mass
+    }
+
+    return newPolygonJSON
