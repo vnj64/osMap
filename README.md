@@ -21,4 +21,7 @@ docker-compose build
 
 # Run the container
 docker-compose up -d
+
+# Check for errors in the logs if this doesn't work via
+docker-compose logs -f
 ```
