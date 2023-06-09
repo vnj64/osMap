@@ -1,0 +1,7 @@
+__pycache__/
+.tif
+../app/images/
+../app/geojsons/
+.geojson
+.env
+venv/
