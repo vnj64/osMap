@@ -9,7 +9,7 @@ from app.utils.scripts.functions import download
 
 app = FastAPI(title="FastAPI, Docker, and Traefik")
 
-IMAGEDIR = "images/"
+IMAGEDIR = "app/images/"
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -70,8 +70,8 @@ async def create_upload_file(file: UploadFile = File(...)):
         f.write(contents)
     # will be redacted soon
     # tiff_to_png_convert
-    res_img = Image.open(BytesIO(contents))
-    download(res_img)
+    # res_img = Image.open(BytesIO(contents))
+    # download(res_img)
     result = converter(name)
     return result
 
