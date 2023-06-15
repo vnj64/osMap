@@ -1,5 +1,16 @@
-.App {
-    text-align: center;
-    height: 100%;
-    width: 100%;
+:root {
+    --color-background-page: #0D0C0C;
+    --color-background-line: #222644;
+    --color-text-prime: #E2DFDF;
+    --color-text-secondary: #BFBFBF;
+    --color-text-button: #D6D6D6;
+    --color-background-button-default: #353B72;
+    --color-background-button-hover: #4542E8;
+    --color-background-button-active: #21222F;
+  }
+
+html {
+    min-height: 100%;
+    background-color: var(--color-background-page);
+    /* background-color: white; */
 }

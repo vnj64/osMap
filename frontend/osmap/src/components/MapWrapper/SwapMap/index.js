@@ -28,7 +28,6 @@ const SwapMap = ({ map }) => {
         });
         map.getLayers().removeAt(0);
         map.getLayers().insertAt(0, newTileLayer);
-        // map.addLayer(newTileLayer)
         console.log(map.getLayers());
     };
 

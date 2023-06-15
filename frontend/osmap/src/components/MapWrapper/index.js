@@ -17,8 +17,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { MAP_ROUTE } from '../Routring/urls';
 import SwapMap from './SwapMap';
 import { toStringXY } from 'ol/coordinate';
+import Layers from './Layers';
 
-const MapWrapper = ({ target }) => {
+const MapWrapper = () => {
   const { lat, lng } = useParams();
   const navigate = useNavigate();
   const mapElement = useRef();
@@ -29,24 +30,25 @@ const MapWrapper = ({ target }) => {
   const [centerCoord, setCenterCoord] = useState([lat, lng]);
   const [propertiesPopup, setPropertiesPopup] = useState({});
 
-  const checkTarget = (target, lat, lng) => {
-    if (lat !== undefined && lng !== undefined) {
+  const checkTarget = (lat, lng) => {
+
+    console.log(typeof lat, lng);
+
+    if (lat == 0 && lng == 0) {
+      console.log('я выполнился')
       return new View({
         constrainResolution: true,
-        center: fromLonLat([lat, lng]),
-        zoom: 9,
-      });
-    }
-
-    if (target) {
-      return new View({
-        center: [0, 0],
+        center: fromLonLat([0, 0]),
         zoom: 1,
       });
-    }
+    } 
 
-    return null;
-  };
+    return new View({
+      constrainResolution: true,
+      center: fromLonLat([lat, lng]),
+      zoom: 8,
+    });
+  }
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -59,13 +61,13 @@ const MapWrapper = ({ target }) => {
           }),
         ],
         target: mapElement.current,
-        view: checkTarget(target, lat, lng),
+        view: checkTarget(lat, lng),
       });
 
       const vectorSource = new VectorSource({
         format: new GeoJSON(),
-        url:
-          'https://api.maptiler.com/data/46088e4f-9c74-43d2-9c13-ff6b9960830f/features.json?key=YbVpn3RV4HKKTCpFsNK9',
+        url: 'https://api.maptiler.com/data/46088e4f-9c74-43d2-9c13-ff6b9960830f/features.json?key=YbVpn3RV4HKKTCpFsNK9',
+        // url: 'http://localhost:8000/polygons'
       });
 
       const vectorLayer = new VectorLayer({
@@ -118,7 +120,7 @@ const MapWrapper = ({ target }) => {
       mapRef.current = initialMap;
       setMap(initialMap);
     }
-  }, [target, lat, lng]);
+  }, []);
 
   useEffect(() => {
     if (mapRef.current) {
@@ -167,8 +169,8 @@ const MapWrapper = ({ target }) => {
         <span>Дата добавление: {propertiesPopup.datePublish}</span>
         <span>Фото: {propertiesPopup.images}</span>
       </div>
-
       <SwapMap map={map} />
+      <Layers map={map} />
 
       <div className="clicked-coord-label">
         <p>{selectedCoord ? toStringXY(selectedCoord, 5) : ''}</p>

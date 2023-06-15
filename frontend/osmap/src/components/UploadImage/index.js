@@ -8,12 +8,14 @@ const UploadImage =  () => {
     const navigate = useNavigate();
 
     const [file, setFile] = useState('');
+    const [fileName, setFileName] = useState('');
     const [target, setTarget] = useState([]);
     const [isUpload, setIsUpload] = useState(false);
 
 
     const selectFile = (e) => {
         setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
     }
 
     const viewGeo = () => {
@@ -32,20 +34,20 @@ const UploadImage =  () => {
     }
 
     const checkMap = () => {
-        console.log(target[0], target[1]);
         navigate(MAP_ROUTE + `/${target[0]}/${target[1]}`)
     }
 
     return (
         <>
-            <input type='file' onChange={selectFile} accept="image/tif" />
+            <input required className="inputfile" id="file" type="file" onChange={selectFile} accept="image/tif" />
+            <label htmlFor="file"><span className='text text--inputfile'>{fileName ? `${fileName}` : 'Выберите файл'}</span></label>
             {
                 isUpload ? 
-                <button disabled={!file} onClick={checkMap}>
+                <button className="button text" disabled={!file} onClick={checkMap}>
                     Посмотреть
                 </button>
                 :
-                <button disabled={!file} onClick={viewGeo}>
+                <button className="button text" disabled={!file} onClick={viewGeo}>
                     Отправить
                 </button>
             }
