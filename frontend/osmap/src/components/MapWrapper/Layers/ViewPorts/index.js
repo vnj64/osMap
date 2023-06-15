@@ -7,13 +7,11 @@ import Icon from "ol/style/Icon";
 
 const ViewPorts = ({ map }) => {
     const [isShow, setIsShow] = useState(false);
+    const [tileVector, setTileVector] = useState(null);
 
     const handleShowPorts = () => {
-
-        console.log(map.getLayers());
-        let sourcePorts = null;
         if (!isShow) {
-            sourcePorts = new VectorSource({
+            const sourcePorts = new VectorSource({
                 url: "https://api.maptiler.com/data/32d3998a-b1cf-4ef2-9fbe-97c1437cdff8/features.json?key=YbVpn3RV4HKKTCpFsNK9",
                 format: new GeoJSON()
             });
@@ -29,12 +27,15 @@ const ViewPorts = ({ map }) => {
                 })
             });
 
-            map.getLayers().insertAt(1, newTileVector);
-            console.log(map.getLayers());
+            map.addLayer(newTileVector);
+            setTileVector(newTileVector);
             setIsShow(true);
         } else {
+            if (tileVector) {
+                map.removeLayer(tileVector);
+                setTileVector(null);
+            }
             setIsShow(false);
-            map.getLayers().removeAt(1);
         }
     };
 

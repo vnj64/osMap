@@ -120,6 +120,14 @@ const MapWrapper = () => {
       mapRef.current = initialMap;
       setMap(initialMap);
     }
+    
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.setTarget(null);
+        mapRef.current.dispose();
+        mapRef.current = null;
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -160,7 +168,7 @@ const MapWrapper = () => {
   };
 
   return (
-    <>
+    <div>
       <div id="map" ref={mapElement}></div>
 
       <div className="ol-popup" id="popup" ref={popupRef}>
@@ -175,7 +183,7 @@ const MapWrapper = () => {
       <div className="clicked-coord-label">
         <p>{selectedCoord ? toStringXY(selectedCoord, 5) : ''}</p>
       </div>
-    </>
+    </div>
   );
 };
 

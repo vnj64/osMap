@@ -9,10 +9,9 @@ import Stroke from "ol/style/Stroke";
 
 const ViewRails = ({ map }) => {
     const [isShow, setIsShow] = useState(false);
+    const [tileVector, setTileVector] = useState(null);
 
     const handleShowPorts = () => {
-
-        console.log(map.getLayers());
         let sourcePorts = null;
         if (!isShow) {
             sourcePorts = new VectorSource({
@@ -33,13 +32,15 @@ const ViewRails = ({ map }) => {
                 })
             });
 
-            map.getLayers().insertAt(2, newTileVector);
-            console.log(map.getLayers());
+            map.addLayer(newTileVector);
+            setTileVector(newTileVector);
             setIsShow(true);
         } else {
+            if (tileVector) {
+                map.removeLayer(tileVector);
+                setTileVector(null);
+            }
             setIsShow(false);
-            map.getLayers().removeAt(2);
-            // map.getLayers().remove(newTileVector);
         }
     };
 
