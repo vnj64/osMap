@@ -15,7 +15,6 @@ import Stroke from 'ol/style/Stroke';
 import Overlay from 'ol/Overlay';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MAP_ROUTE } from '../Routring/urls';
-import SwapMap from './SwapMap';
 import { toStringXY } from 'ol/coordinate';
 import Layers from './Layers';
 
@@ -35,7 +34,6 @@ const MapWrapper = () => {
     console.log(typeof lat, lng);
 
     if (lat == 0 && lng == 0) {
-      console.log('я выполнился')
       return new View({
         constrainResolution: true,
         center: fromLonLat([0, 0]),
@@ -104,7 +102,6 @@ const MapWrapper = () => {
             initialMap.addOverlay(popup);
 
             const properties = clickedFeature.getProperties();
-            console.log(properties, 'параметры полигона');
             setPropertiesPopup(properties);
           }
         } else {
@@ -177,9 +174,7 @@ const MapWrapper = () => {
         <span>Дата добавление: {propertiesPopup.datePublish}</span>
         <span>Фото: {propertiesPopup.images}</span>
       </div>
-      <SwapMap map={map} />
       <Layers map={map} />
-
       <div className="clicked-coord-label">
         <p>{selectedCoord ? toStringXY(selectedCoord, 5) : ''}</p>
       </div>

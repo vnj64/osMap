@@ -39,26 +39,6 @@
                     linear-gradient(90deg, var(--color-background-line) 50%, var(--color-background-page) 50%);
 }
 
-.border2 {
-
-}
-
-.border3 {
-
-}
-
-.border4 {
-
-}
-
-.border5 {
-
-}
-
-.border6 {
-
-}
-
 .main__content {
     display: flex;
     flex-direction: column;
@@ -100,14 +80,6 @@
     gap: 65px;
     position: relative;
     bottom: 45px;
-}
-
-.main__spaceship-image {
-
-}
-
-.main__spaceship-shadow {
-
 }
 
 @media (max-width: 1240px) {

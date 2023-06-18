@@ -4,8 +4,6 @@ import Header from './components/Header';
 import AppRouter from './components/Routring';
 
 const App = () => {
-
-  
   
   return (
       <BrowserRouter>

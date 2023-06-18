@@ -6,7 +6,7 @@
     justify-content: space-between;
     gap: 40px;
     z-index: 1;
-    top: 9px;
+    top: 15px;
     left: 67px;
 }
 
@@ -38,9 +38,8 @@
 @media (max-width: 1240px) {
     .header {
         flex-direction: column;
-        gap: 26px;
+        gap: 40px;
         top: 16px;
-        left: 9px;
     }
 
     .header--main {

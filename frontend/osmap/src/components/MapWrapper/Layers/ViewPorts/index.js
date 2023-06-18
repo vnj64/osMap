@@ -40,19 +40,11 @@ const ViewPorts = ({ map }) => {
     };
 
     return (
-        <div
+        <div 
+            className="layers__image"
             onClick={handleShowPorts}
-            style={{
-                position: "absolute",
-                cursor: "pointer",
-                top: "100px",
-                right: "0",
-                width: "100px",
-                height: "100px",
-                backgroundColor: "green",
-            }}
         >
-            <img style={{width: '100px', height: '100px'}}
+            <img className="layers__image "
                 src="https://www.naturalearthdata.com/wp-content/uploads/2009/09/thumb_ports.png"
                 alt="картинка показывающая морские порты мира"
             />

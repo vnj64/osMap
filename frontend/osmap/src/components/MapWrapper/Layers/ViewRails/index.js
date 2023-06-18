@@ -3,7 +3,6 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import GeoJSON from 'ol/format/GeoJSON';
 import Style from "ol/style/Style";
-import Icon from "ol/style/Icon";
 import Fill from "ol/style/Fill";
 import Stroke from "ol/style/Stroke";
 
@@ -45,19 +44,11 @@ const ViewRails = ({ map }) => {
     };
 
     return (
-        <div
+        <div 
+            className="layers__image"
             onClick={handleShowPorts}
-            style={{
-                position: "absolute",
-                cursor: "pointer",
-                top: "200px",
-                right: "0",
-                width: "100px",
-                height: "100px",
-                backgroundColor: "white",
-            }}
         >
-            <img style={{width: '100px', height: '100px'}}
+            <img className="layers__image "
                 src="https://cdn-icons-png.flaticon.com/512/84/84805.png"
                 alt="картинка показывающая морские железные дороги в северной америке"
             />

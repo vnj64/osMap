@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes } from './Routes';
-import { MAIN_ROUTE, MAP_ROUTE } from './urls';
+import { MAP_ROUTE } from './urls';
 
 const AppRouter = () => {
 
