@@ -16,11 +16,23 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## Project setup.
 ```
-# Build docker image
+# Creating venv.
+python3 -m venv venv
+
+# Activate venv.
+source venv/vin/activate
+
+# Install dependencies.
+pip install -r requirements.txt
+
+# Build docker image.
 docker-compose build
 
-# Run the container
-docker-compose up -d
+# Up db container.
+docker-compose up db
+
+# Run the server from project root.
+uvicorn app.main:app --reload
 
 # Check for errors in the logs if this doesn't work via
 docker-compose logs -f
