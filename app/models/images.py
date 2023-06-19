@@ -16,23 +16,21 @@ class Polygons(Base):
     datePublish = Column(DATE)
 
     @classmethod
-    async def get_polygons(cls, id: int, session_maker: sessionmaker):
+    async def get_polygons(cls, session_maker: sessionmaker):
         async with session_maker() as session:
-            sql = select(cls).where(id == cls.id)
+            sql = select(cls)
             result = await session.execute(sql)
-            return result.first()
+            return result.all()
 
     @classmethod
     async def insert_polygons(cls,
                               session_maker: sessionmaker,
-                              id: int,
                               name: str,
                               images: str,
                               full_coordinates: dict,
                               date_publish: datetime):
         async with session_maker() as session:
             sql = insert(cls).values(
-                id=id,
                 name=name,
                 images=images,
                 full_coordinates=full_coordinates,

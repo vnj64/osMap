@@ -47,48 +47,42 @@ async def create_upload_file(file: UploadFile = File(...)):
 
     with open(f"{IMAGEDIR}{file.filename}", "wb") as f:
         f.write(contents)
-    # ValueError: not enough values to unpack (expected 3, got 2)
+
     result, geojson_path, full_coordinates = converter(name)
 
-
-    # res_img = Image.open(BytesIO(contents))
-    # download(res_img)
-
     now = datetime.now()
-    time_upload = now.strftime("%d:%m:%Y-%H:%M")
-    await Polygons.insert_polygons(id=1, session_maker=session, name=str(name), images="path_to_dir",
+    await Polygons.insert_polygons(session_maker=session, name=str(name), images="path_to_dir",
                                    full_coordinates=full_coordinates, date_publish=now)
 
     return result
 
-# @app.get('/polygons')
-# async def get_markers_coords():
-#     # получение из бд
-#     mass = [{'id': id, "name": name, 'images': "images", 'full_coordinates': full_coordinates, 'dataPublish': dataPublish}]
-#     new_mass = []
-#
-#     for item in mass:
-#         new_item = {
-#             type: "Feature",
-#             'geometry': {
-#                 type: "Polygon",
-#                 'coordinates': item.full_coordinates
-#
-#             },
-#             id: item.id,
-#             'properties': {
-#                 'images': item.images,
-#                 'datePublish': item.dataPublish
-#             }
-#         }
-#         new_mass.append(new_item)
-#
-#     newPolygonJSON = {
-#         type: "FeatureCollection",
-#         'features': new_mass
-#     }
-#
-#     return newPolygonJSON
+
+@app.get('/polygons')
+async def get_markers_coords():
+    # получение из бд
+    new_mass = []
+    session = await create_db_session(cfg=config)
+    # for item in mass:
+    #     new_item = {
+    #         type: "Feature",
+    #         'geometry': {
+    #             type: "Polygon",
+    #             'coordinates': item.full_coordinates
+    #
+    #         },
+    #         id: item.id,
+    #         'properties': {
+    #             'images': item.images,
+    #             'datePublish': item.dataPublish
+    #         }
+    #     }
+    #     new_mass.append(new_item)
+    #
+    # newPolygonJSON = {
+    #     type: "FeatureCollection",
+    #     'features': new_mass
+    # }
+    return await Polygons.get_polygons(session_maker=session)
 
 if __name__ == "__main__":
     async def start():
