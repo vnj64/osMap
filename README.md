@@ -3,7 +3,7 @@
 <p align="center"><img src="./readme_assets/PIC2.png"></p>
 
 ## Description.
-Project implemented on Python with using [fastAPI](https://fastapi.tiangolo.com/) framework. The user uploads .tiff
+Project implemented on React and Python with using [fastAPI](https://fastapi.tiangolo.com/) framework. The user uploads .tiff
 image and by its result can see the correct binding of its image to the map. Coordinates are attached to the picture and
 its owner can view the polygon in the area where the picture was taken.
 
@@ -16,24 +16,22 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## Project setup.
 ```
-# Creating venv.
-python3 -m venv venv
+Backend:
+# Installing dependencies
+pip install requirements.txt
 
-# Activate venv.
-source venv/vin/activate
+# Database and project setuping. 
+docker-compose up -d
 
-# Install dependencies.
-pip install -r requirements.txt
+Frontend(path: /frontend/osmap):
+# There should be the following versions
+Node - v16.17.0
+npm - v8.15.0
+npx - v8.15.0
 
-# Build docker image.
-docker-compose build
+# Install packages
+npm install
 
-# Up db container.
-docker-compose up db
-
-# Run the server from project root.
-uvicorn app.main:app --reload
-
-# Check for errors in the logs if this doesn't work via
-docker-compose logs -f
+# Start the project
+npm run start
 ```

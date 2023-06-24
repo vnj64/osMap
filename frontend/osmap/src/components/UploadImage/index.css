@@ -1,0 +1,66 @@
+
+.inputfile {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    padding: 19px 92px 20px 82px;
+    background-color: var(--color-background-button-default);
+    border-radius: 61px;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: var(--color-background-button-hover)
+}
+
+.inputfile + label {
+	cursor: pointer;
+}
+
+.inputfile:valid + label { 
+    background-color: var(--color-background-button-active);
+}
+
+.inputfile + label * {
+	pointer-events: none;
+}
+
+.text {
+    display: inline-block;
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--color-text-button);
+}
+
+.text--inputfile {
+    width: 142px;
+    height: 22px;
+    overflow: hidden;
+}
+
+.button {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: none;
+    padding: 19px 92px 20px 82px;
+    width: 316px;
+    background-color: var(--color-background-button-hover);
+    border-radius: 61px;
+}
+
+.button:disabled {
+    cursor: auto;
+    background-color: var(--color-background-button-active);
+}
