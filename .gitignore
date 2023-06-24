@@ -1,6 +1,4 @@
 .tif
-../app/images/
-../app/geojsons/
 .geojson
 
 # Byte-compiled / optimized / DLL files
