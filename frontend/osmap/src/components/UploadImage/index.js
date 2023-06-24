@@ -23,7 +23,7 @@ const UploadImage =  () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        fetch('http://localhost:8000/upload/', {
+        fetch('http://localhost:8000/api/upload/', {
             method: 'POST',
             body: formData,
         }).then(response => response.json()).then((data) => {

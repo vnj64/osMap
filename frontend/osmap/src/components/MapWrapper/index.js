@@ -64,8 +64,7 @@ const MapWrapper = () => {
 
       const vectorSource = new VectorSource({
         format: new GeoJSON(),
-        url: 'https://api.maptiler.com/data/46088e4f-9c74-43d2-9c13-ff6b9960830f/features.json?key=YbVpn3RV4HKKTCpFsNK9',
-        // url: 'http://localhost:8000/polygons'
+        url: 'http://localhost:8000/api/polygons'
       });
 
       const vectorLayer = new VectorLayer({
@@ -172,7 +171,7 @@ const MapWrapper = () => {
         <a href="#" id="popup-closer" className="ol-popup-closer" onClick={closePopup}></a>
         <span>Имя: {propertiesPopup.name}</span>
         <span>Дата добавление: {propertiesPopup.datePublish}</span>
-        <span>Фото: {propertiesPopup.images}</span>
+        {propertiesPopup.images &&  <img src={propertiesPopup.images} alt="фотка которую сделал спутник" />}
       </div>
       <Layers map={map} />
       <div className="clicked-coord-label">
