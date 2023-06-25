@@ -30,9 +30,6 @@ const MapWrapper = () => {
   const [propertiesPopup, setPropertiesPopup] = useState({});
 
   const checkTarget = (lat, lng) => {
-
-    console.log(typeof lat, lng);
-
     if (lat == 0 && lng == 0) {
       return new View({
         constrainResolution: true,
@@ -164,14 +161,13 @@ const MapWrapper = () => {
   };
 
   return (
-    <div>
+    <div> 
       <div id="map" ref={mapElement}></div>
 
       <div className="ol-popup" id="popup" ref={popupRef}>
         <a href="#" id="popup-closer" className="ol-popup-closer" onClick={closePopup}></a>
         <span>Имя: {propertiesPopup.name}</span>
         <span>Дата добавление: {propertiesPopup.datePublish}</span>
-        {propertiesPopup.images &&  <img src={propertiesPopup.images} alt="фотка которую сделал спутник" />}
       </div>
       <Layers map={map} />
       <div className="clicked-coord-label">
