@@ -37,7 +37,7 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.post("/upload/")
+@app.post("/api/upload/")
 async def create_upload_file(file: UploadFile = File(...)):
     session = await create_db_session(cfg=config)
     name = uuid.uuid4()
@@ -60,7 +60,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         return "Кажется данное изображение не имеет геоданных."
 
 
-@app.get('/polygons')
+@app.get('/api/polygons')
 async def get_markers_coords():
     session = await create_db_session(cfg=config)
     new_mass = []
@@ -83,6 +83,7 @@ async def get_markers_coords():
                     },
                     'id': polygon.id,
                     'properties': {
+                        'name': polygon.name,
                         'images': polygon.images,
                         'datePublish': polygon.datePublish
                     }
