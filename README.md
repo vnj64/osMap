@@ -22,6 +22,12 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## Project setup.
 ```
+# Clone repository.
+git clone git@github.com:vnj64/osMap.git
+
+# Move to the root.
+cd osMap/
+
 Backend(root path):
 
 # Give access to .sh scripts (run from project root).
@@ -48,3 +54,6 @@ npm install
 # Start the project
 npm run start
 ```
+
+## Issues.
+ If you find any error, please write to [issue](https://github.com/vnj64/osMap/issues). Thank you!
