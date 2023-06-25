@@ -16,24 +16,15 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## Project setup.
 ```
-# Creating venv.
-python3 -m venv venv
+# Give access to .sh scripts (run from project root).
+cd scripts && chmod a+x pre_start.sh start.sh
 
-# Activate venv.
-source venv/vin/activate
+# Run pre_start.sh (DONT CLOSE BEFORE start.sh).
+./pre_start.sh
 
-# Install dependencies.
-pip install -r requirements.txt
+# Run start.sh (in other cmd).
+./start.sh
 
-# Build docker image.
-docker-compose build
-
-# Up db container.
-docker-compose up db
-
-# Run the server from project root.
-uvicorn app.main:app --reload
-
-# Check for errors in the logs if this doesn't work via
+# Check for errors in the logs if this doesn't work via.
 docker-compose logs -f
 ```
