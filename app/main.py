@@ -57,7 +57,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         return result
     except Exception as e:
         print(e)
-        return "Кажется данное изображение не имеет геоданных."
+        return "Кажется данное изображение не имеет геоданных, либо вы его уже использовали!."
 
 
 @app.get('/api/polygons')

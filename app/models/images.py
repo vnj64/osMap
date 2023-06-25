@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Column, String, DATE, select, insert, Integer, JSON
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import sessionmaker
 
 from app.services.db.dbase import Base
@@ -12,7 +13,7 @@ class Polygons(Base):
     id = Column(Integer, unique=True, primary_key=True)
     name = Column(String, unique=True)
     images = Column(String)
-    full_coordinates = Column(JSON)
+    full_coordinates = Column(JSON().with_variant(JSONB(none_as_null=True), 'postgresql'), unique=True)
     datePublish = Column(DATE)
 
     @classmethod
