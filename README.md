@@ -16,12 +16,19 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## Project setup.
 ```
-Backend:
-# Installing dependencies
-pip install requirements.txt
+Backend(root path):
 
-# Database and project setuping. 
-docker-compose up -d
+# Give access to .sh scripts (run from project root).
+cd scripts && chmod a+x pre_start.sh start.sh
+
+# Run pre_start.sh (DONT CLOSE BEFORE start.sh).
+./pre_start.sh
+
+# Run start.sh (in other cmd).
+./start.sh
+
+# Check for errors in the logs if this doesn't work via.
+docker-compose logs -f
 
 Frontend(path: /frontend/osmap):
 # There should be the following versions
