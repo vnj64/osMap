@@ -12,7 +12,13 @@ It's as simple as that. Click the upload image button, and admire our creation.
 
 ## About the project.
 - .tiff viewer implemented with [React.js](https://react.dev/) and [OpenLayers](https://openlayers.org/) library on Front-end.
-- On the backend we used [Python 3.8](https://www.python.org/), [fastAPI](https://fastapi.tiangolo.com/) framework.
+- On the backend we used [Python 3.8](https://www.python.org/), [fastAPI](https://fastapi.tiangolo.com/) framework, [SQLAlchemy](https://www.sqlalchemy.org/).
+
+## Contributors.
+- [vnJ64](https://github.com/vnj64)
+- [Limonadek](https://github.com/Limonadek)
+- [GitAlexandr](https://github.com/GitAlexandr)
+- [gavrushhha](https://github.com/gavrushhha)
 
 ## Project setup.
 ```
