@@ -28,6 +28,9 @@ git clone git@github.com:vnj64/osMap.git
 # Move to the root.
 cd osMap/
 
+# Create .env file (template in root)
+nano .env
+
 Backend(root path):
 
 # Give access to .sh scripts (run from project root).
