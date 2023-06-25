@@ -12,7 +12,6 @@ class Polygons(Base):
 
     id = Column(Integer, unique=True, primary_key=True)
     name = Column(String, unique=True)
-    images = Column(String)
     full_coordinates = Column(JSON().with_variant(JSONB(none_as_null=True), 'postgresql'), unique=True)
     datePublish = Column(DATE)
 
@@ -27,13 +26,11 @@ class Polygons(Base):
     async def insert_polygons(cls,
                               session_maker: sessionmaker,
                               name: str,
-                              images: str,
                               full_coordinates: dict,
                               date_publish: datetime):
         async with session_maker() as session:
             sql = insert(cls).values(
                 name=name,
-                images=images,
                 full_coordinates=full_coordinates,
                 datePublish=date_publish,
             )
